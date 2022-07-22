@@ -1,5 +1,4 @@
 const modal = () => {
-  console.log("Модал");
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
   const popupClose = modal.querySelector(".popup-close");
