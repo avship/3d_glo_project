@@ -32,10 +32,11 @@ const menuModule = () => {
   };
 
   menuBtn.addEventListener("click", openClose);
-  closeBtn.addEventListener("click", openClose);
 
-  menuItems.forEach((element) => {
-    element.addEventListener("click", openClose);
-  });
+  // closeBtn.addEventListener("click", openClose);
+
+  // menuItems.forEach((element) => {
+  //   element.addEventListener("click", openClose);
+  // });
 };
 export default menuModule;
