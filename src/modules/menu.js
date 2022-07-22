@@ -1,9 +1,5 @@
 const menuModule = () => {
-  const menuBtn = document.querySelector(".menu");
   const menu = document.querySelector("menu");
-  const closeBtn = menu.querySelector(".close-btn");
-  const menuItems = menu.querySelectorAll("ul>li>a");
-  const btnNext = document.querySelector("#next_section");
 
   const scrollToElem = (section) => {
     section.scrollIntoView({
@@ -11,15 +7,6 @@ const menuModule = () => {
       behavior: "smooth",
     });
   };
-
-  btnNext.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    const sectionId = event.target.parentNode.getAttribute("href");
-    const section = document.querySelector(sectionId);
-
-    scrollToElem(section);
-  });
 
   const openClose = (event) => {
     event.preventDefault();
@@ -30,13 +17,24 @@ const menuModule = () => {
       scrollToElem(section);
     }
   };
+  const toggleMenu = (e) => {
+    if (e.target.closest(".close-btn") || e.target.closest(".menu")) {
+      menu.classList.toggle("active-menu");
+    } else if (e.target.closest("menu") && e.target.tagName === "A") {
+      openClose(e);
+    } else if (e.target.closest("#next_section")) {
+      e.preventDefault();
+      scrollToElem(e.target.closest("#next_section"));
+    } else if (
+      !e.target.closest("menu") &&
+      menu.classList.contains("active-menu")
+    ) {
+      menu.classList.remove("active-menu");
+    }
+  };
 
-  menuBtn.addEventListener("click", openClose);
-
-  // closeBtn.addEventListener("click", openClose);
-
-  // menuItems.forEach((element) => {
-  //   element.addEventListener("click", openClose);
-  // });
+  document.body.addEventListener("click", (e) => {
+    toggleMenu(e);
+  });
 };
 export default menuModule;
