@@ -24,6 +24,9 @@ const menuModule = () => {
       openClose(e);
     } else if (e.target.closest("#next_section")) {
       e.preventDefault();
+      if (menu.classList.contains("active-menu")) {
+        menu.classList.remove("active-menu");
+      }
       scrollToElem(e.target.closest("#next_section"));
     } else if (
       !e.target.closest("menu") &&
