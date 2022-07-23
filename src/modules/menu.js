@@ -19,6 +19,7 @@ const menuModule = () => {
   };
   const toggleMenu = (e) => {
     if (e.target.closest(".close-btn") || e.target.closest(".menu")) {
+      e.preventDefault();
       menu.classList.toggle("active-menu");
     } else if (e.target.closest("menu") && e.target.tagName === "A") {
       openClose(e);
