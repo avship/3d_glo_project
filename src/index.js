@@ -10,4 +10,19 @@ menuModule();
 modalModule();
 formValidation();
 tabs();
-slider();
+slider({
+  sliderClass: "portfolio-content",
+  sliderItemsClass: "portfolio-item",
+  sliderItemsClassActive: "portfolio-item-active",
+  //   arrows: true,
+  arrowLeftClass: "portfolio-btn prev",
+  arrowRightClass: "portfolio-btn next",
+  dots: true,
+  dotsParams: {
+    dotContainer: "portfolio-dots",
+    dotItemClass: "dot",
+    dotActiveClass: "dot-active",
+  },
+  debug: true,
+  timerInterval: 2000,
+});
