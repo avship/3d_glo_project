@@ -4,6 +4,7 @@ import modalModule from "./modules/modal";
 import formValidation from "./modules/form-validation";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
+import calc from "./modules/calc";
 
 timerModule("31 july 2022");
 menuModule();
@@ -26,3 +27,5 @@ slider({
   debug: true,
   timerInterval: 2000,
 });
+
+calc(100);
