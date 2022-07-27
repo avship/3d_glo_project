@@ -35,7 +35,7 @@ const calc = (pricePerMeter = 100) => {
       calcCountValue *
       calcDayValue;
 
-    total.textContent = totalValue;
+    total.textContent = Math.round(totalValue);
   };
 
   calcBlock.addEventListener("input", (e) => {

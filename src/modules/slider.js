@@ -189,18 +189,17 @@ const slider = (params) => {
   sliderBlock.addEventListener(
     "mouseenter",
     (e) => {
-      //   console.log(
-      //     e.target,
-      //     dotItemClass,
-      //     e.target.classList.contains("slider-btn-handler"),
-      //     e.target.classList.contains(dotItemClass.slice(1))
-      //   );
       if (
         e.target.classList.contains("slider-btn-handler") ||
         e.target.classList.contains(dotItemClass.slice(1))
       ) {
-        dots ? prevSlide(dotItems, currentSlide, dotActiveClass) : "";
         stopSlide();
+        dotItems.forEach((item, id) => {
+          if (item === e.target) {
+            currentSlide = id;
+          }
+        });
+        nextSlide(slides, currentSlide, sliderItemsClassActive);
       }
     },
     true
@@ -208,10 +207,12 @@ const slider = (params) => {
   sliderBlock.addEventListener(
     "mouseleave",
     (e) => {
+      console.log(e.target, dotItemClass);
       if (
         e.target.classList.contains("slider-btn-handler") ||
-        e.target.classList.contains(dotItemClass)
+        e.target.classList.contains(dotItemClass.slice(1))
       ) {
+        //console.log(currentSlide);
         startSlide();
       }
     },

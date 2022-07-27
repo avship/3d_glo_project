@@ -15,7 +15,7 @@ slider({
   sliderClass: "portfolio-content",
   sliderItemsClass: "portfolio-item",
   sliderItemsClassActive: "portfolio-item-active",
-  //   arrows: true,
+  arrows: true,
   arrowLeftClass: "portfolio-btn prev",
   arrowRightClass: "portfolio-btn next",
   dots: true,
