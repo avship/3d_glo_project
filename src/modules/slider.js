@@ -156,50 +156,59 @@ const slider = (params) => {
 
   sliderBlock.addEventListener("click", (e) => {
     e.preventDefault();
-    if (!e.target.matches(dotItemClass, ".slider-btn-handler")) {
-      return;
-    }
-    arrows ? prevSlide(slides, currentSlide, sliderItemsClassActive) : "";
-    dots ? prevSlide(dotItems, currentSlide, dotActiveClass) : "";
-
-    //slider-btn-handler-prev и next дописывает js
-    if (e.target.matches(".slider-btn-handler-next")) {
-      currentSlide++;
-      if (currentSlide >= slides.length) {
-        currentSlide = 0;
-      }
-    }
-    if (e.target.matches("slider-btn-handler-prev")) {
-      currentSlide--;
-      if (currentSlide < 0) {
-        currentSlide = slides.length - 1;
-      }
-    }
-    if (e.target.classList.contains(dotItemClass)) {
+    if (e.target.matches(dotItemClass)) {
+      prevSlide(slides, currentSlide, sliderItemsClassActive);
+      prevSlide(dotItems, currentSlide, dotActiveClass);
       dotItems.forEach((dot, index) => {
         if (dot === e.target) {
           currentSlide = index;
         }
       });
+      // console.log(currentSlide);
+      nextSlide(slides, currentSlide, sliderItemsClassActive);
+      nextSlide(dotItems, currentSlide, dotActiveClass);
     }
-    arrows ? nextSlide(slides, currentSlide, sliderItemsClassActive) : "";
-    dots ? nextSlide(dotItems, currentSlide, dotActiveClass) : "";
+    if (
+      e.target.matches(".slider-btn-handler-next") ||
+      e.target.matches(".slider-btn-handler-prev")
+    ) {
+      arrows ? prevSlide(slides, currentSlide, sliderItemsClassActive) : "";
+      dots ? prevSlide(dotItems, currentSlide, dotActiveClass) : "";
+
+      //slider-btn-handler-prev и next дописывает js
+      if (e.target.matches(".slider-btn-handler-next")) {
+        currentSlide++;
+        if (currentSlide >= slides.length) {
+          currentSlide = 0;
+        }
+      }
+      if (e.target.matches(".slider-btn-handler-prev")) {
+        currentSlide--;
+        if (currentSlide < 0) {
+          currentSlide = slides.length - 1;
+        }
+      }
+      if (e.target.classList.contains(dotItemClass)) {
+        dotItems.forEach((dot, index) => {
+          if (dot === e.target) {
+            currentSlide = index;
+          }
+        });
+      }
+      arrows ? nextSlide(slides, currentSlide, sliderItemsClassActive) : "";
+      dots ? nextSlide(dotItems, currentSlide, dotActiveClass) : "";
+    }
   });
 
   sliderBlock.addEventListener(
     "mouseenter",
     (e) => {
       if (
-        e.target.classList.contains("slider-btn-handler") ||
+        e.target.classList.contains("slider-btn-handler-next") ||
+        e.target.classList.contains("slider-btn-handler-prev") ||
         e.target.classList.contains(dotItemClass.slice(1))
       ) {
         stopSlide();
-        dotItems.forEach((item, id) => {
-          if (item === e.target) {
-            currentSlide = id;
-          }
-        });
-        nextSlide(slides, currentSlide, sliderItemsClassActive);
       }
     },
     true
@@ -207,10 +216,11 @@ const slider = (params) => {
   sliderBlock.addEventListener(
     "mouseleave",
     (e) => {
-      console.log(e.target, dotItemClass);
+      // console.log(e.target, dotItemClass);
       if (
-        e.target.classList.contains("slider-btn-handler") ||
-        e.target.classList.contains(dotItemClass.slice(1))
+        e.target.classList.contains("slider-btn-handler-next") ||
+        e.target.classList.contains(dotItemClass.slice(1)) ||
+        e.target.classList.contains("slider-btn-handler-prev")
       ) {
         //console.log(currentSlide);
         startSlide();
