@@ -1,3 +1,4 @@
+import { animate } from "./helpers";
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
@@ -20,7 +21,19 @@ const modal = () => {
       popupContent.style.top = "-100%";
       modal.style.display = "block";
       if (document.documentElement.clientWidth >= 768) {
-        animPopupContent();
+        // animPopupContent();
+        const top = parseInt(popupContent.style.top);
+        animate({
+          duration: 1000,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            popupContent.style.top = `${
+              top + (Math.abs(top) + 30) * progress
+            }%`;
+          },
+        });
       } else {
         popupContent.style.top = "30%";
       }

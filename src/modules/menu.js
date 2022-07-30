@@ -1,11 +1,30 @@
+import { animate } from "./helpers";
 const menuModule = () => {
   const menu = document.querySelector("menu");
 
   const scrollToElem = (section) => {
-    section.scrollIntoView({
-      block: "start",
-      behavior: "smooth",
+    const y = section.getBoundingClientRect().top;
+    console.log(y);
+    const stepY = y / 1000;
+    console.log(stepY);
+    animate({
+      duration: 1000,
+      timing(timeFraction) {
+        return timeFraction;
+      },
+      draw(progress) {
+        document.documentElement.scrollBy(0, stepY);
+        document.documentElement.scrollTop = y * progress;
+        console.log(document.documentElement.scrollTop, y);
+        // document.documentElement.scrollTop = Math.floor(
+        //   progress * document.documentElement.scrollTop
+        // );
+      },
     });
+    //   section.scrollIntoView({
+    //     block: "start",
+    //     behavior: "smooth",
+    //   });
   };
 
   const openClose = (event) => {
