@@ -3,9 +3,8 @@ const formValidation = () => {
     e.target.value = e.target.value.replace(/\D+/, "");
   };
   const messageFilter = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     e.target.value = e.target.value.replace(/[^А-Яа-яёЁ \-]/, "");
-    console.log(e.target.value);
   };
   const emailInputChecker = (e) => {
     e.target.value = e.target.value.replace(/[^\w@\.\-\_\!\~\*]/, "");

@@ -5,6 +5,7 @@ import formValidation from "./modules/form-validation";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import calc from "./modules/calc";
+import sendForm from "./modules/sendForm";
 
 timerModule("31 july 2022");
 menuModule();
@@ -29,3 +30,16 @@ slider({
 });
 
 calc(100);
+sendForm({
+  formId: "form1",
+  someElem: [
+    {
+      type: "block",
+      id: "total",
+    },
+  ],
+});
+sendForm({
+  formId: "form3",
+});
+sendForm({ formId: "form2" });
