@@ -74,7 +74,7 @@ const sendForm = ({ formId, someElem = [] }) => {
     return success;
   };
   const sendData = (data) => {
-    return fetch("./server.php", {
+    return fetch("https://jsonplaceholder.typicode.com/", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -116,8 +116,6 @@ const sendForm = ({ formId, someElem = [] }) => {
         .catch((err) => {
           statusBlock.textContent = errorText;
         });
-    } else {
-      alert("Данные введены неверно!");
     }
   };
   try {
@@ -161,8 +159,6 @@ const sendForm = ({ formId, someElem = [] }) => {
         if (form.closest(".popup")) {
           form.closest(".popup").style.display = "none";
         }
-      } else {
-        alert("Невалидные поля выделены");
       }
     });
   } catch (error) {

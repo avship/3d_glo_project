@@ -48,6 +48,9 @@ const modal = () => {
       e.target.closest(".popup-close")
     ) {
       modal.style.display = "none";
+      document.querySelectorAll(".popup input").forEach((element) => {
+        element.classList.remove("error");
+      });
     }
   });
 };
