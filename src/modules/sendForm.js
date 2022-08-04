@@ -74,7 +74,7 @@ const sendForm = ({ formId, someElem = [] }) => {
     return success;
   };
   const sendData = (data) => {
-    return fetch("https://jsonplaceholder.typicode.com/", {
+    return fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
