@@ -37,7 +37,7 @@ const calc = (pricePerMeter = 100) => {
       calcDayValue;
 
     const prevVal = +total.textContent;
-    const toVal = Math.round(progress * totalValue);
+    // const toVal = Math.round(progress * totalValue);
     // let
     animate({
       duration: 2000,

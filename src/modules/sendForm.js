@@ -116,7 +116,7 @@ const sendForm = ({ formId, someElem = [] }) => {
     const listElements = form.querySelectorAll("input");
     const formData = new FormData(form);
     const formBody = {};
-
+    statusBlock.style.color = "#FFF";
     statusBlock.textContent = loadText;
     form.append(statusBlock);
 
@@ -128,7 +128,11 @@ const sendForm = ({ formId, someElem = [] }) => {
     someElem.forEach((elem) => {
       const element = document.getElementById(elem.id);
       if (element) {
-        if (elem.type === "block" && element.textContent.trim() !== "") {
+        if (
+          elem.type === "block" &&
+          element.textContent.trim() !== "" &&
+          element.textContent.trim() !== "0"
+        ) {
           formBody[elem.id] = element.textContent.trim();
         }
         if (
