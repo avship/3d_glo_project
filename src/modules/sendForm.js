@@ -4,7 +4,7 @@ const sendForm = ({ formId, someElem = [] }) => {
   const statusBlock = document.createElement("div");
   const loadText = "Загрузка...";
   const errorText = "Ошибка...";
-  const successText = "Спасибо, наш менеджер встретиться с вами";
+  const successText = "Спасибо, наш менеджер встретится с вами";
 
   const validatePhone = (phoneInput) => {
     let flag = true;
@@ -82,6 +82,36 @@ const sendForm = ({ formId, someElem = [] }) => {
       },
     }).then((res) => res.json());
   };
+  const toggleError = (testInput) => {
+    if (
+      testInput.getAttribute("name") === "user_name" &&
+      !testInput.classList.contains("not-sent")
+    ) {
+      validateName(testInput);
+    }
+    if (
+      testInput.getAttribute("name") === "user_email" &&
+      !testInput.classList.contains("not-sent")
+    ) {
+      validateEmail(testInput);
+    }
+    if (
+      testInput.getAttribute("name") === "user_phone" &&
+      !testInput.classList.contains("not-sent")
+    ) {
+      validatePhone(testInput);
+    }
+    // if (
+    //   testInput.getAttribute("name") === "user_message" &&
+    //   !testInput.classList.contains("not-sent")
+    // ) {
+    //   if (!testInput.value.length) {
+    //     testInput.classList.add("error");
+    //   } else {
+    //     testInput.classList.remove("error");
+    //   }
+    // }
+  };
   const submitForm = () => {
     const listElements = form.querySelectorAll("input");
     const formData = new FormData(form);
@@ -91,7 +121,9 @@ const sendForm = ({ formId, someElem = [] }) => {
     form.append(statusBlock);
 
     formData.forEach((val, key) => {
-      formBody[key] = val;
+      if (val.trim() !== "") {
+        formBody[key] = val;
+      }
     });
     someElem.forEach((elem) => {
       const element = document.getElementById(elem.id);
@@ -99,7 +131,11 @@ const sendForm = ({ formId, someElem = [] }) => {
         if (elem.type === "block" && element.textContent.trim() !== "") {
           formBody[elem.id] = element.textContent.trim();
         }
-        if (elem.type === "input" && element.value.trim() !== "") {
+        if (
+          elem.type === "input" &&
+          element.value.trim() !== "" &&
+          element.value.trim() !== "0"
+        ) {
           formBody[elem.id] = element.value.trim();
         }
       }
@@ -111,10 +147,22 @@ const sendForm = ({ formId, someElem = [] }) => {
           listElements.forEach((input) => {
             input.value = "";
           });
+          if (form.closest(".popup")) {
+            statusBlock.style.color = "#FFF";
+          }
           statusBlock.textContent = successText;
+          setTimeout(() => {
+            statusBlock.textContent = "";
+          }, 4000);
         })
         .catch((err) => {
+          if (form.closest(".popup")) {
+            statusBlock.style.color = "#FFF";
+          }
           statusBlock.textContent = errorText;
+          setTimeout(() => {
+            statusBlock.textContent = "";
+          }, 3000);
         });
     }
   };
@@ -122,42 +170,43 @@ const sendForm = ({ formId, someElem = [] }) => {
     if (!form) {
       throw new Error("Вернииите формту на место, пожААААААлуйста!!!");
     }
+    form.querySelectorAll("input").forEach((element) => {
+      element.classList.add("not-sent");
+    });
     form.addEventListener("input", (e) => {
-      if (e.target.getAttribute("name") === "user_name") {
-        validateName(e.target);
-      }
-      if (e.target.getAttribute("name") === "user_email") {
-        validateEmail(e.target);
-      }
-      if (e.target.getAttribute("name") === "user_phone") {
-        validatePhone(e.target);
-      }
-      if (e.target.getAttribute("name") === "user_message") {
-        if (!e.target.value.length) {
-          e.target.classList.add("error");
-        } else {
-          e.target.classList.remove("error");
-        }
-      }
+      e.target.value = e.target.value.trim();
+      toggleError(e.target);
     });
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      form.querySelectorAll("input").forEach((element) => {
+        element.classList.remove("not-sent");
+        toggleError(element);
+      });
+
       let flag = true;
       form.querySelectorAll("input").forEach((elem, id) => {
         elem.value = elem.value.trim();
         if (elem.classList.contains("error")) {
           flag = false;
         }
-        if (elem.value === "") {
+        if (elem.value === "" && elem.getAttribute("name") !== "user_message") {
           elem.classList.add("error");
           flag = false;
         }
       });
       if (flag) {
         submitForm();
-        form.querySelectorAll("input").forEach((elem) => (elem.value = ""));
+        form.querySelectorAll("input").forEach((elem) => {
+          if (elem.classList.contains("error")) {
+            elem.value = "";
+          }
+        });
         if (form.closest(".popup")) {
-          form.closest(".popup").style.display = "none";
+          setTimeout(() => {
+            form.closest(".popup").style.display = "none";
+          }, 3000);
         }
       }
     });
