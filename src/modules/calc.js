@@ -43,7 +43,7 @@ const calc = (pricePerMeter = 100) => {
     // let
     if (prevVal != totalValue) {
       animate({
-        duration: 2000,
+        duration: 600,
         timing(timeFraction) {
           return timeFraction;
         },
