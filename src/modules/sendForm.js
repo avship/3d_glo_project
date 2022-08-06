@@ -9,8 +9,12 @@ const sendForm = ({ formId, someElem = [] }) => {
   const validatePhone = (phoneInput) => {
     let flag = true;
     const tmp = phoneInput.value.trim().replace(/[^\d]/g, "");
+
     if (tmp.length != 11) {
+      phoneInput.classList.add("error");
       flag = false;
+    } else {
+      phoneInput.classList.remove("error");
     }
     // if (
     //   phoneInput.value.slice(0, 1) === "+" ||
@@ -119,9 +123,6 @@ const sendForm = ({ formId, someElem = [] }) => {
     const listElements = form.querySelectorAll("input");
     const formData = new FormData(form);
     const formBody = {};
-    statusBlock.style.color = "#FFF";
-    statusBlock.textContent = loadText;
-    form.append(statusBlock);
 
     formData.forEach((val, key) => {
       if (val.trim() !== "") {
@@ -148,6 +149,9 @@ const sendForm = ({ formId, someElem = [] }) => {
       }
     });
     if (validate(listElements)) {
+      statusBlock.style.color = "#FFF";
+      statusBlock.textContent = loadText;
+      form.append(statusBlock);
       sendData(formBody)
         .then((data) => {
           console.log(data);
