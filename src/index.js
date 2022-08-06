@@ -6,6 +6,7 @@ import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import calc from "./modules/calc";
 import sendForm from "./modules/sendForm";
+import phoneMask from "./modules/phoneMask";
 
 timerModule("7 august 2022");
 menuModule();
@@ -57,3 +58,5 @@ sendForm({
     },
   ],
 });
+
+phoneMask();

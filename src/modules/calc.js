@@ -29,6 +29,7 @@ const calc = (pricePerMeter = 100) => {
     } else if (calcDay.value && calcDay.value < 10) {
       calcDayValue = 1.5;
     }
+    console.log(calcDayValue);
     let totalValue =
       pricePerMeter *
       calcTypeValue *
@@ -37,18 +38,23 @@ const calc = (pricePerMeter = 100) => {
       calcDayValue;
 
     const prevVal = +total.textContent;
-    // const toVal = Math.round(progress * totalValue);
+    const toVal = totalValue;
+
     // let
-    animate({
-      duration: 2000,
-      timing(timeFraction) {
-        return timeFraction;
-      },
-      draw(progress) {
-        total.textContent = Math.round(progress * totalValue);
-        //document.body.textContent = Math.floor(progress * 100) + "%";
-      },
-    });
+    if (prevVal != totalValue) {
+      animate({
+        duration: 2000,
+        timing(timeFraction) {
+          return timeFraction;
+        },
+        draw(progress) {
+          total.textContent = Math.round(
+            prevVal + progress * (toVal - prevVal)
+          );
+          //document.body.textContent = Math.floor(progress * 100) + "%";
+        },
+      });
+    }
     total.textContent = Math.round(totalValue);
   };
 

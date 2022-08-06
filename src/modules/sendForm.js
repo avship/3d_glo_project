@@ -9,24 +9,27 @@ const sendForm = ({ formId, someElem = [] }) => {
   const validatePhone = (phoneInput) => {
     let flag = true;
     const tmp = phoneInput.value.trim().replace(/[^\d]/g, "");
-    if (
-      phoneInput.value.slice(0, 1) === "+" ||
-      phoneInput.value.slice(0, 1) === "8"
-    ) {
-      if (tmp.length < 10) {
-        phoneInput.classList.add("error");
-        flag = false;
-      } else {
-        phoneInput.classList.remove("error");
-      }
-    } else {
-      if (tmp.length < 6) {
-        phoneInput.classList.add("error");
-        flag = false;
-      } else {
-        phoneInput.classList.remove("error");
-      }
+    if (tmp.length != 11) {
+      flag = false;
     }
+    // if (
+    //   phoneInput.value.slice(0, 1) === "+" ||
+    //   phoneInput.value.slice(0, 1) === "8"
+    // ) {
+    //   if (tmp.length < 10) {
+    //     phoneInput.classList.add("error");
+    //     flag = false;
+    //   } else {
+    //     phoneInput.classList.remove("error");
+    //   }
+    // } else {
+    //   if (tmp.length < 6) {
+    //     phoneInput.classList.add("error");
+    //     flag = false;
+    //   } else {
+    //     phoneInput.classList.remove("error");
+    //   }
+    // }
     return flag;
   };
   const validateEmail = (emailInput) => {
